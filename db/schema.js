@@ -20,3 +20,7 @@ const gameSchema = mongoose.Schema({
 const Question = mongoose.model('Question', questionSchema);
 const Category = mongoose.model('Category', categorySchema);
 const Game = mongoose.model('Game', gameSchema);
+
+module.exports = {
+  Question, Category, Game
+}
