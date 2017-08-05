@@ -5,12 +5,13 @@ const QuestionStyles = styled.div`
   background: #2a3698;
   color: #ffff5f;
   border: 3px solid black;
+  height: 125px;
 `;
 
-const Question = () => {
+const Question = (props) => {
   return (
     <QuestionStyles>
-      question
+      {props.question.value}
     </QuestionStyles>
   );
 };

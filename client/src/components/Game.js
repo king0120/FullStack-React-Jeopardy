@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GameBoard from './GameBoard';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const GameStyles = styled.div`
@@ -10,12 +11,24 @@ const GameStyles = styled.div`
 `;
 
 class Game extends Component {
+  constructor(){
+    super();
+    this.state = {
+      game: {}
+    }
+  }
+
+  componentWillMount(){
+    axios.get('/api/game').then(res => {
+      this.setState({game: res.data});
+    });
+  }
   render() {
     return (
       <GameStyles>
         <h1>This Is Jeopardy!</h1>
-        <h3>Welcome username</h3>
-        <GameBoard />
+        <h3>Welcome {this.state.game.user}</h3>
+         <GameBoard categories={this.state.game.categories}/> 
       </GameStyles>
     );
   }

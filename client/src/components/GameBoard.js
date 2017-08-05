@@ -10,15 +10,18 @@ const GameBoardStyles = styled.div`
   width: 100%;
 `;
 
-const GameBoard = () => {
-  const testArray = [1,2,3,4,5,6];
+const GameBoard = (props) => {
   return (
     <GameBoardStyles>
-      {testArray.map((i) => {
-        return <Category key={i} />
-      })}
+       {props.categories.map((category, i) => { 
+         return <Category key={i} category={category}/> 
+       })}
     </GameBoardStyles>
   );
 };
+
+GameBoard.defaultProps = {
+  categories: []
+}
 
 export default GameBoard;

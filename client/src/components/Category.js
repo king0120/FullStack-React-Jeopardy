@@ -7,14 +7,20 @@ const CategoryStyles = styled.div`
   height: 100%;
 `;
 
-const Category = () => {
+const Category = (props) => {
   const testQuestions = [200,400,600,800,1000]
   return (
     <CategoryStyles>
-      <h1>CATEGORY</h1>
-      {testQuestions.map(i => <Question key={i} />)}
+      <h1>{props.category.name}</h1>
+      {props.category.questions.map((question, i) => <Question key={i} question={question} />)}
     </CategoryStyles>
   );
 };
+
+Category.defaultProps = {
+  category: {
+    questions: []
+  }
+}
 
 export default Category;
