@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const GameController = require('./controllers/game');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/fullstack-jeopardy');
 
@@ -13,6 +14,8 @@ connection.on('connected', () => {
 connection.on('error', (err) => {  
   console.log('Mongoose default connection error: ' + err);
 }); 
+
+app.use('/api/game', GameController);
 
 app.get('/', (req,res) => {
   res.send('Hello world!')
