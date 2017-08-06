@@ -12,7 +12,7 @@ const Category = (props) => {
   return (
     <CategoryStyles>
       <h1>{props.category.name}</h1>
-      {props.category.questions.map((question, i) => <Question key={i} question={question} />)}
+      {props.category.questions.map((question, i) => <Question key={i} question={question} submitAnswer={props.submitAnswer}/>)}
     </CategoryStyles>
   );
 };

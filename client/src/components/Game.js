@@ -23,12 +23,31 @@ class Game extends Component {
       this.setState({game: res.data});
     });
   }
+
+  _submitAnswer = (e, question) => {
+    e.preventDefault();
+    const answerGiven = e.target.answer.value;
+    const newState = {...this.state}
+    if (answerGiven == question.answer){
+      console.log("Correct")
+      newState.game.points += question.value;
+    } else {
+      console.log("Incorrect")
+      newState.game.points -= question.value;
+    }
+    this.setState({game: newState.game});
+    axios.put('/api/game', newState).then((res) => {
+        console.log("Successful update");
+      });
+  }
+
   render() {
     return (
       <GameStyles>
         <h1>This Is Jeopardy!</h1>
         <h3>Welcome {this.state.game.user}</h3>
-         <GameBoard categories={this.state.game.categories}/> 
+        <h3>Points: {this.state.game.points}</h3>
+         <GameBoard categories={this.state.game.categories} submitAnswer={this._submitAnswer}/> 
       </GameStyles>
     );
   }

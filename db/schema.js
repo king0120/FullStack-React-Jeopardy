@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const questionSchema = mongoose.Schema({
   value: Number,
   question: String,
-  answer: String
+  answer: String,
+  answered: { type: Boolean, default: false }
 });
 
 const categorySchema = mongoose.Schema({

@@ -8,4 +8,10 @@ router.get("/", (req,res) => {
   });
 });
 
+router.put("/:id", (req,res) => {
+  Game.findOneAndUpdate(req.body.game).then((game) => {
+    res.json(game);
+  })
+});
+
 module.exports = router;
