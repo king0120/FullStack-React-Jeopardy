@@ -19,7 +19,7 @@ class Game extends Component {
   }
 
   componentWillMount(){
-    axios.get('/api/game').then(res => {
+    axios.get(`/api/game/${this.props.match.params.gameId}`).then(res => {
       this.setState({game: res.data});
     });
   }
@@ -36,7 +36,8 @@ class Game extends Component {
       newState.game.points -= question.value;
     }
     this.setState({game: newState.game});
-    axios.put('/api/game', newState).then((res) => {
+    console.log(this.state.game._id);
+    axios.put('/api/game/' + this.state.game._id, newState).then((res) => {
         console.log("Successful update");
       });
   }
