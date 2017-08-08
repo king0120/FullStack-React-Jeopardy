@@ -1,6 +1,6 @@
 const express = require('express');
-const Question = require('../models/Question');
-const Category = require('../models/Category');
+const Question = require('../models/question');
+const Category = require('../models/category');
 const Game = require('../models/game');
 const router = express.Router();
 
