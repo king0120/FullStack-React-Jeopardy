@@ -14,7 +14,7 @@ const GameBoard = (props) => {
   return (
     <GameBoardStyles>
        {props.categories.map((category, i) => { 
-         return <Category key={i} submitAnswer={props.submitAnswer} category={category}/> 
+         return <Category key={i} id={i} board={props.board} submitAnswer={props.submitAnswer} category={category}/> 
        })}
     </GameBoardStyles>
   );

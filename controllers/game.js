@@ -36,10 +36,26 @@ router.get("/:id", (req,res) => {
 });
 
 router.put("/:id", (req,res) => {
-  Game.findOneAndUpdate({_id: req.params.id}, {points: req.body.game.points}).then((game) => {
+  const { board, points } = req.body.game;
+  Game.findOneAndUpdate({_id: req.params.id}, {board, points}).then((game) => {
     res.json(game);
   })
   .catch(err => console.log(err));
 });
+
+router.delete("/all", (req,res) => {
+  Game.remove().then(game => {
+    res.send("Deleted all");
+  })
+  .catch(err => console.log(err));
+});
+
+router.delete("/:id", (req,res) => {
+  Game.findOneAndRemove({_id: req.params.id}).then((game) => {
+    res.send("Successfully deleted");
+  })
+  .catch(err => console.log(err));
+});
+
 
 module.exports = router;

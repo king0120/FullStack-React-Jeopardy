@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const QuestionStyles = styled.div`
-  background: #2a3698;
+  background: ${props => props.answered ? "grey" : "#2a3698"};
   color: #ffff5f;
   border: 3px solid black;
   height: 125px;
@@ -22,21 +22,32 @@ class Question extends Component {
   constructor(){
     super();
     this.state = {
-      active: false
+      active: false,
+      answered: false
     };
   }
   _toggleActive = () => {
-    this.setState({active: !this.state.active});
+    if(!this.state.answered){
+      this.setState({active: !this.state.active});
+    }
+  }
+  componentWillMount(){
+    if(this.props.board[this.props.id]){
+      this.setState({answered: true, active: false})
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.board[this.props.id]){
+      this.setState({answered: true, active: false})
+    }
   }
   render() {
     return (
-      <QuestionStyles>
-        <div>
+      <QuestionStyles answered={this.state.answered}>
         {this.state.active ? 
-          <ActiveQuestion submitAnswer={(e) => this.props.submitAnswer(e, this.props.question)} question={this.props.question.question}/> : 
+          <ActiveQuestion submitAnswer={(e) => this.props.submitAnswer(e, this.props.question, this.props.id)} question={this.props.question.question}/> : 
           <div onClick={this._toggleActive}>{this.props.question.value}</div>
         }
-        </div>
       </QuestionStyles>
     );
   }

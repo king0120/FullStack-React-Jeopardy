@@ -24,7 +24,7 @@ class Game extends Component {
     });
   }
 
-  _submitAnswer = (e, question) => {
+  _submitAnswer = (e, question, id) => {
     e.preventDefault();
     const answerGiven = e.target.answer.value;
     const newState = {...this.state}
@@ -35,8 +35,9 @@ class Game extends Component {
       console.log("Incorrect")
       newState.game.points -= question.value;
     }
+    newState.game.board[id] = true;
+    console.log(newState.game.board);
     this.setState({game: newState.game});
-    console.log(this.state.game._id);
     axios.put('/api/game/' + this.state.game._id, newState).then((res) => {
         console.log("Successful update");
       });
@@ -48,7 +49,7 @@ class Game extends Component {
         <h1>This Is Jeopardy!</h1>
         <h3>Welcome {this.state.game.user}</h3>
         <h3>Points: {this.state.game.points}</h3>
-         <GameBoard categories={this.state.game.categories} submitAnswer={this._submitAnswer}/> 
+         <GameBoard board={this.state.game.board} categories={this.state.game.categories} submitAnswer={this._submitAnswer}/> 
       </GameStyles>
     );
   }

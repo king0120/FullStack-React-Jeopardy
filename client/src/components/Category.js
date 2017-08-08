@@ -8,11 +8,10 @@ const CategoryStyles = styled.div`
 `;
 
 const Category = (props) => {
-  const testQuestions = [200,400,600,800,1000]
   return (
     <CategoryStyles>
       <h1>{props.category.name}</h1>
-      {props.category.questions.map((question, i) => <Question key={i} question={question} submitAnswer={props.submitAnswer}/>)}
+      {props.category.questions.map((question, i) => <Question key={i} id={(props.id * 5) + i} board={props.board} question={question} submitAnswer={props.submitAnswer}/>)}
     </CategoryStyles>
   );
 };
