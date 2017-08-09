@@ -9,13 +9,13 @@ const QuestionStyles = styled.div`
 `;
 
 const ActiveQuestion = (props) => (
-  <div>
+  <QuestionStyles answered={props.answered}>
     <div>{props.question}</div>
     <form onSubmit={props.submitAnswer}>
       <input type="text" name="answer"/>
       <button>Submit</button>
     </form>
-  </div>
+  </QuestionStyles>
 );
 
 class Question extends Component {
@@ -42,14 +42,11 @@ class Question extends Component {
     }
   }
   render() {
-    return (
-      <QuestionStyles answered={this.state.answered}>
-        {this.state.active ? 
-          <ActiveQuestion submitAnswer={(e) => this.props.submitAnswer(e, this.props.question, this.props.id)} question={this.props.question.question}/> : 
-          <div onClick={this._toggleActive}>{this.props.question.value}</div>
-        }
-      </QuestionStyles>
-    );
+    if (this.state.active){
+      return <ActiveQuestion answered={this.state.answered} question={this.props.question.question}/>;
+    } else {
+      return <QuestionStyles answered={this.state.answered} onClick={this._toggleActive}>{this.props.question.value}</QuestionStyles>;
+    }
   }
 }
 

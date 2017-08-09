@@ -24,23 +24,31 @@ class Game extends Component {
     });
   }
 
+  // Notice we pass 3 arguments to the function
   _submitAnswer = (e, question, id) => {
+    //Prevents page refresh
     e.preventDefault();
+    //Grabs the user input value
     const answerGiven = e.target.answer.value;
+
+    //Creates a new copy of the state.
     const newState = {...this.state}
-    if (answerGiven == question.answer){
-      console.log("Correct")
+
+    //Update the points based on whether or not the answer is correct.
+    if (answerGiven === question.answer){
       newState.game.points += question.value;
     } else {
-      console.log("Incorrect")
       newState.game.points -= question.value;
     }
+    //Change the flag that tracks which questions have been answered
     newState.game.board[id] = true;
-    console.log(newState.game.board);
+
+    //Update our state in the client
     this.setState({game: newState.game});
+    //Update our Game in the DB
     axios.put('/api/game/' + this.state.game._id, newState).then((res) => {
-        console.log("Successful update");
-      });
+      console.log("Successful update");
+    });
   }
 
   render() {
